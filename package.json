@@ -6,7 +6,8 @@
   },
   "publisher": "rebornix",
   "activationEvents": [
-    "onCommand:react-webview.start"
+    "onCommand:extension.js",
+    "onDebug"
   ],
   "main": "./build/ext-src/extension.js",
   "contributes": {

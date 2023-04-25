@@ -1,11 +1,16 @@
 import * as path from 'path';
 import * as vscode from 'vscode';
 
-export function activate(context: vscode.ExtensionContext) {
 
+export async function activate(context: vscode.ExtensionContext) {
+	
 	context.subscriptions.push(vscode.commands.registerCommand('react-webview.start', () => {
 		ReactPanel.createOrShow(context.extensionPath);
 	}));
+
+	// Opens preview window on extension startup by using react-webview.start
+	vscode.commands.executeCommand('react-webview.start');
+
 }
 
 /**
@@ -31,11 +36,11 @@ class ReactPanel {
 		if (ReactPanel.currentPanel) {
 			ReactPanel.currentPanel._panel.reveal(column);
 		} else {
-			ReactPanel.currentPanel = new ReactPanel(extensionPath, column || vscode.ViewColumn.One);
+			ReactPanel.currentPanel = new ReactPanel(extensionPath, vscode.ViewColumn.Two);
 		}
 	}
 
-	private constructor(extensionPath: string, column: vscode.ViewColumn) {
+	private constructor(extensionPath: string, column: vscode.ViewColumn.Two) {
 		this._extensionPath = extensionPath;
 
 		// Create and show a new webview panel
