@@ -5,36 +5,21 @@
 	"version": "0.2.0",
 	"configurations": [
 		{
-			"type": "mock",
-			"request": "launch",
-			"name": "Debug test.py",
-			"program": "${workspaceFolder}/test.py",
-			"stopOnEntry": true,
-			"trace": false
-		},
-		{
-			"type": "mock",
-			"request": "attach",
-			"name": "Attach test.py",
-			"program": "${workspaceFolder}/test.py",
-			"stopOnEntry": true,
-			"trace": false
-		},
-		{
-			"name": "Python Extension",
+			"name": "Pedagog Attach",
 			"type": "python",
 			"request": "attach",
-			"program": "${selectedText}",
-			"stopOnEntry": true,
-			"console": "integratedTerminal",
-			"justMyCode": false
+			"connect": {
+				"host": "localhost",
+				"port": 8000,
+			},
 		},
 		{
-            "name": "Listen",
-            "type": "python",
-            "request": "attach",
-            "listen": { "host": "localhost", "port": 5678 },
-            "justMyCode": true
-        }
+			"name": "Pedagog Launch",
+			"type": "python",
+			"request": "launch",
+			"program": "${file}",
+			"console": "integratedTerminal",
+			"stopOnEntry": true
+		}
 	]
 }

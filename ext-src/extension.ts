@@ -1,9 +1,65 @@
 import * as path from 'path';
 import * as vscode from 'vscode';
 
+/**
+ * This is webSocket server side stuff, all on localHost so http is secure enough
+ */
+const { WebSocket, WebSocketServer } = require('ws');
+const http = require('http');
+const uuidv = require('uuid').v4; //for unique user ID's probably not needed
 
-export async function activate(context: vscode.ExtensionContext) {
+//spinning http server into webSocket server
+const server = http.createServer(); //http server to use
+const wsServer = new WebSocketServer({ server }); //socket on http server to send/receive messages
+const port = 8000; //port that matches client
+wsServer.listen(port, () => { //tells server to listen on 'port' logs if successful
+	console.log(`WebSocket server is running on port ${port}`);
+});
+
+let client = new WebSocket();
+
+//handle client connection
+wsServer.on('connection', function(connection) {
+	console.log('Client connecting to server...');
 	
+	//store the new connection and attach events
+	client = connection;
+	console.log('Client is connected to server ws://127.0.0.1:8000');
+	connection.on('message', (message) => handleMessage(message));
+	connection.on('close', () => handleDisconnect());
+})
+
+//Message from client
+function handleMessage(message) {
+	const dataFromClient = JSON.parse(message.toString());
+	if(dataFromClient != null) {
+		//do stuff with data
+	}
+	//broadcast message json message with data needed back to client
+	const json = { dataFromClient }; //just sends back same data as received right now
+	broadcastMessage(json);
+}
+
+//function to handle disconnect of client
+function handleDisconnect() {
+	console.log('Client has disconnected from server');
+
+}
+
+//function to broadcast message to client
+function broadcastMessage(json) {
+	const data = JSON.stringify(json); //convert JSON object into string
+	if(client.readyState == WebSocket.OPEN) { //check if client is ready for message
+		client.send(data); //send the message
+	}
+}
+
+/**
+ * End of WebSocket server stuff
+ */
+
+export function activate(context: vscode.ExtensionContext) {
+
 	context.subscriptions.push(vscode.commands.registerCommand('react-webview.start', () => {
 		ReactPanel.createOrShow(context.extensionPath);
 	}));
@@ -44,7 +100,7 @@ class ReactPanel {
 		this._extensionPath = extensionPath;
 
 		// Create and show a new webview panel
-		this._panel = vscode.window.createWebviewPanel(ReactPanel.viewType, "React", column, {
+		this._panel = vscode.window.createWebviewPanel(ReactPanel.viewType, "React", {viewColumn:column, preserveFocus:true}, {
 			// Enable javascript in the webview
 			enableScripts: true,
 
