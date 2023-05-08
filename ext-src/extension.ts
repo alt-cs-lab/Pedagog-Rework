@@ -9,7 +9,7 @@ export async function activate(context: vscode.ExtensionContext) {
 	}));
 
 	// Opens preview window on extension startup by using react-webview.start
-	vscode.commands.executeCommand('react-webview.start');
+	// vscode.commands.executeCommand('react-webview.start');
 
 }
 

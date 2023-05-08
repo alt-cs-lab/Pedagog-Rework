@@ -5,36 +5,14 @@
 	"version": "0.2.0",
 	"configurations": [
 		{
-			"type": "mock",
-			"request": "launch",
-			"name": "Debug test.py",
-			"program": "${workspaceFolder}/test.py",
-			"stopOnEntry": true,
-			"trace": false
-		},
-		{
-			"type": "mock",
-			"request": "attach",
-			"name": "Attach test.py",
-			"program": "${workspaceFolder}/test.py",
-			"stopOnEntry": true,
-			"trace": false
-		},
-		{
-			"name": "Python Extension",
+			"name": "Pedagog",
 			"type": "python",
 			"request": "attach",
-			"program": "${selectedText}",
+			"program": "${file}",
 			"stopOnEntry": true,
 			"console": "integratedTerminal",
-			"justMyCode": false
-		},
-		{
-            "name": "Listen",
-            "type": "python",
-            "request": "attach",
-            "listen": { "host": "localhost", "port": 5678 },
-            "justMyCode": true
-        }
+			"justMyCode": false,
+			"processId": "${command:react-webview.start}"
+		}
 	]
 }
