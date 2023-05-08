@@ -12,7 +12,7 @@ const uuidv = require('uuid').v4; //for unique user ID's probably not needed
 const server = http.createServer(); //http server to use
 const wsServer = new WebSocketServer({ server }); //socket on http server to send/receive messages
 const port = 8000; //port that matches client
-server.listen(port, () => { //tells server to listen on 'port' logs if successful
+wsServer.listen(port, () => { //tells server to listen on 'port' logs if successful
 	console.log(`WebSocket server is running on port ${port}`);
 });
 
@@ -63,6 +63,8 @@ export function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(vscode.commands.registerCommand('react-webview.start', () => {
 		ReactPanel.createOrShow(context.extensionPath);
 	}));
+	// Opens preview window on extension startup by using react-webview.start
+	vscode.commands.executeCommand('react-webview.start');
 }
 
 /**
@@ -96,7 +98,7 @@ class ReactPanel {
 		this._extensionPath = extensionPath;
 
 		// Create and show a new webview panel
-		this._panel = vscode.window.createWebviewPanel(ReactPanel.viewType, "React", column, {
+		this._panel = vscode.window.createWebviewPanel(ReactPanel.viewType, "React", {viewColumn:column, preserveFocus:true}, {
 			// Enable javascript in the webview
 			enableScripts: true,
 

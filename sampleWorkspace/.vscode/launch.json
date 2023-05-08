@@ -5,15 +5,21 @@
 	"version": "0.2.0",
 	"configurations": [
 		{
-			"name": "Pedagog",
+			"name": "Pedagog Attach",
 			"type": "python",
 			"request": "attach",
 			"connect": {
-				"host": "websocket",
-				"port": 8000
+				"host": "localhost",
+				"port": 8000,
 			},
-			"justMyCode": false,
-			"processId": "${command:react-webview.start}"
+		},
+		{
+			"name": "Pedagog Launch",
+			"type": "python",
+			"request": "launch",
+			"program": "${file}",
+			"console": "integratedTerminal",
+			"stopOnEntry": true
 		}
 	]
 }

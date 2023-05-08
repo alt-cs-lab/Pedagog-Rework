@@ -15,7 +15,6 @@ const {
   getWebSocket,
 } = useWebSocket(socketUrl, {
   onOpen: () => console.log('opened'),
-  shouldReconnect: (closeEvent) => true,
   onMessage: () => dataReceived,
 });
 
