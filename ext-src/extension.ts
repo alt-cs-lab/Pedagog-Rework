@@ -1,7 +1,9 @@
 import * as path from 'path';
 import * as vscode from 'vscode';
 
-
+/* The activate function is run when one of the activation events are
+*	triggered located in package.json  
+*/
 export async function activate(context: vscode.ExtensionContext) {
 	
 	context.subscriptions.push(vscode.commands.registerCommand('react-webview.start', () => {
@@ -44,7 +46,8 @@ class ReactPanel {
 		this._extensionPath = extensionPath;
 
 		// Create and show a new webview panel
-		this._panel = vscode.window.createWebviewPanel(ReactPanel.viewType, "React", column, {
+		this._panel = vscode.window.createWebviewPanel(ReactPanel.viewType, "React", {viewColumn:column, preserveFocus:true}, {
+			
 			// Enable javascript in the webview
 			enableScripts: true,
 
