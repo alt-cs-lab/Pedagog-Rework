@@ -1,4 +1,4 @@
-# VSCode Webview React
+# Pedagogical IDE
 
 This project was bootstrapped with 
 * [Create React App](https://github.com/facebookincubator/create-react-app)
@@ -15,7 +15,21 @@ Run following commands in the terminal
 yarn install --ignore-engines
 yarn run build
 ```
-And then press F5, in Extension Development Host session, run `Start React Webview` command from command palette.
+
+`Note`: if you get an error saying "yarn is not a recognized command" run
+
+```shell
+npm install -g npm@9.6.5
+npm install --global yarn
+Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy Unrestricted
+```
+
+then try the above two `yarn` commands again.
+
+Once everything is set up and working, go to the "Run and Debug" window in VSCode and click the "Launch Extension" in the top left dropdown.  This will cause a popup window to open.
+In this window, the file you want to debug should show up (currently named "test.py").  Open it, place breakpoints as desired, and then select "Pedagog Launch" from the top left dropdown and hit play.
+
+A webview panel should pop up to the right of the code panel.  Congrats!
 
 ## Under the hood
 
