@@ -12,18 +12,18 @@ const uuidv = require('uuid').v4; //for unique user ID's probably not needed
 const server = http.createServer(); //http server to use
 const wsServer = new WebSocketServer({ server }); //socket on http server to send/receive messages
 const port = 8000; //port that matches client
-wsServer.listen(port, () => { //tells server to listen on 'port' logs if successful
+server.listen(port, () => { //tells server to listen on 'port' logs if successful
 	console.log(`WebSocket server is running on port ${port}`);
 });
 
-let client = new WebSocket();
+// let client = new WebSocket();
 
 //handle client connection
 wsServer.on('connection', function(connection) {
 	console.log('Client connecting to server...');
 	
 	//store the new connection and attach events
-	client = connection;
+	const client = connection;
 	console.log('Client is connected to server ws://127.0.0.1:8000');
 	connection.on('message', (message) => handleMessage(message));
 	connection.on('close', () => handleDisconnect());
@@ -37,7 +37,7 @@ function handleMessage(message) {
 	}
 	//broadcast message json message with data needed back to client
 	const json = { dataFromClient }; //just sends back same data as received right now
-	broadcastMessage(json);
+//	broadcastMessage(json);
 }
 
 //function to handle disconnect of client
@@ -47,12 +47,12 @@ function handleDisconnect() {
 }
 
 //function to broadcast message to client
-function broadcastMessage(json) {
-	const data = JSON.stringify(json); //convert JSON object into string
-	if(client.readyState == WebSocket.OPEN) { //check if client is ready for message
-		client.send(data); //send the message
-	}
-}
+//function broadcastMessage(json) {
+//	const data = JSON.stringify(json); //convert JSON object into string
+//	if(client.readyState == WebSocket.OPEN) { //check if client is ready for message
+//		client.send(data); //send the message
+//	}
+//}
 
 /**
  * End of WebSocket server stuff

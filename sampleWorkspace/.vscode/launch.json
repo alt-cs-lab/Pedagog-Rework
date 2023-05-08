@@ -12,6 +12,7 @@
 				"host": "localhost",
 				"port": 8000,
 			},
+			"processId":"${command:react-webview.start}"
 		},
 		{
 			"name": "Pedagog Launch",
