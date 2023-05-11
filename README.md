@@ -19,9 +19,9 @@ yarn run build
 `Note`: if you get an error saying "yarn is not a recognized command" run
 
 ```shell
+Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy Unrestricted
 npm install -g npm@9.6.5
 npm install --global yarn
-Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy Unrestricted
 ```
 
 then try the above two `yarn` commands again.
