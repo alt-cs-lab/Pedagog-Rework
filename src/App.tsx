@@ -1,5 +1,9 @@
 import * as React from 'react';
 import './App.css';
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+import ReactFlow, { Background, Controls } from 'reactflow';
+import 'reactflow/dist/style.css';
 
 import logo from './logo.svg';
 import useWebSocket from 'react-use-websocket';
@@ -26,15 +30,24 @@ class App extends React.Component {
       }
     });
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.tsx</code> and save to reload.
-        </p>
+      <Box
+      component="form"
+      sx={{
+        '& .MuiTextField-root': { m: 1, width: '25ch' },
+      }}
+      noValidate
+      autoComplete="off"
+    >
+      <div>
+        <TextField
+          id="outlined-multiline-static"
+          label="Code"
+          multiline
+          rows={4}
+          defaultValue="Code something amazing!"
+        />
       </div>
+    </Box>
     );
   }
 }
